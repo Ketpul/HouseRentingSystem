@@ -1,4 +1,4 @@
-﻿using HouseRentingSystem.Data;
+﻿using HouseRentingSystem.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection sevices, IConfiguration config)
         {
             var connectionString = config.GetConnectionString("DefaultConnection");
-            sevices.AddDbContext<ApplicationDbContext>(options =>
+            sevices.AddDbContext<HouseRentingDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             sevices.AddDatabaseDeveloperPageExceptionFilter();
@@ -26,7 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             sevices
                 .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<HouseRentingDbContext>();
 
             return sevices;
         }
